@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>За теб, моята малка Малишка</title>
+    <style>
+        :root {
+            --bg1: #fff7fb;
+            --bg2: #ffe4ef;
+            --accent: #ff629a;
+            --accent-2: #ff9ec2;
+            --sweet: #ffd86d;
+            --purple: #6f5bff;
+            --green: #8fe7a5;
+            --green-dark: #47a76d;
+            --text: #3d2943;
+            --card: rgba(255, 255, 255, 0.8);
+            --shadow: 0 20px 50px rgba(199, 96, 144, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(255, 185, 214, 0.7), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(255, 226, 133, 0.7), transparent 20%),
+                linear-gradient(160deg, var(--bg1), var(--bg2));
+        }
+
+        .page-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,245,250,0.92));
+            border: 1px solid rgba(255, 98, 154, 0.15);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 36px 24px 32px;
+            text-align: center;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            filter: blur(12px);
+            opacity: 0.5;
+        }
+
+        .hero::before {
+            background: rgba(255, 170, 205, 0.45);
+            left: -40px;
+            top: -70px;
+        }
+
+        .hero::after {
+            background: rgba(255, 220, 119, 0.38);
+            right: -30px;
+            bottom: -70px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(255, 98, 154, 0.12);
+            color: var(--accent);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 5vw, 5rem);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 18px auto 0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: rgba(61, 41, 67, 0.8);
+        }
+
+        .cta-row {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 26px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 999px;
+            padding: 14px 22px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 25px rgba(111, 91, 255, 0.15);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+        }
+
+        .btn.secondary {
+            background: rgba(111, 91, 255, 0.1);
+            color: var(--purple);
+        }
+
+        main {
+            margin-top: 28px;
+            display: grid;
+            gap: 28px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.78);
+            border: 1px solid rgba(255, 98, 154, 0.08);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            padding: 28px 24px;
+        }
+
+        .card h2 {
+            margin: 0 0 18px;
+            font-size: clamp(1.7rem, 2vw, 2.4rem);
+            letter-spacing: -0.04em;
+        }
+
+        .quiz-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .question-box {
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,248,252,0.85));
+            border-radius: 20px;
+            border: 1px solid rgba(111, 91, 255, 0.08);
+            padding: 20px;
+        }
+
+        .question-box h3 {
+            margin: 0 0 14px;
+            font-size: 1.15rem;
+            line-height: 1.5;
+        }
+
+        .answers {
+            display: grid;
+            gap: 10px;
+        }
+
+        .answer-btn {
+            width: 100%;
+            text-align: left;
+            background: rgba(255, 98, 154, 0.06);
+            color: var(--text);
+            border: 1px solid rgba(255, 98, 154, 0.08);
+            border-radius: 16px;
+            padding: 12px 14px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .answer-btn:hover {
+            background: rgba(255, 98, 154, 0.1);
+            border-color: rgba(255, 98, 154, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .answer-btn.selected {
+            background: linear-gradient(135deg, rgba(255, 98, 154, 0.12), rgba(111, 91, 255, 0.12));
+            border-color: rgba(111, 91, 255, 0.2);
+        }
+
+        .quiz-result {
+            margin-top: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-height: 28px;
+        }
+
+        .reward-card {
+            display: none;
+            text-align: center;
+            padding: 24px 20px 18px;
+        }
+
+        .reward-card.visible {
+            display: block;
+        }
+
+        .reward-card h3 {
+            margin: 0 0 10px;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.05em;
+        }
+
+        .reward-card p {
+            color: rgba(61, 41, 67, 0.8);
+            line-height: 1.8;
+            margin: 0 auto 18px;
+            max-width: 650px;
+        }
+
+        .reward-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(140px, 1fr));
+            gap: 14px;
+            margin: 18px 0;
+        }
+
+        .reward-photo {
+            position: relative;
+            display: none;
+            min-height: 170px;
+            border-radius: 20px;
+            padding: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(246,194,214,0.42));
+            border: 2px dashed rgba(140, 82, 124, 0.4);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.45);
+            align-items: flex-end;
+            justify-content: center;
+            color: #4b2348;
+            font-weight: 800;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        .reward-photo.visible {
+            display: flex;
+        }
+
+        .reward-letter {
+            position: relative;
+            width: 100%;
+            min-height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .letter-shell {
+            position: relative;
+            width: min(100%, 430px);
+            height: 280px;
+            perspective: 1400px;
+            cursor: pointer;
+        }
+
+        .letter-envelope {
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #fffdfd 0%, #f9ebf2 100%);
+            border: 1px solid rgba(160, 90, 130, 0.22);
+            box-shadow: 0 18px 30px rgba(64, 29, 53, 0.1);
+            overflow: hidden;
+        }
+
+        .letter-envelope::before,
+        .letter-envelope::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0));
+        }
+
+        .letter-flap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 55%;
+            background: linear-gradient(180deg, #fce9f3 0%, #f5dce8 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1px solid rgba(152, 91, 128, 0.18);
+            transform-origin: top center;
+            transition: transform 0.7s ease;
+            z-index: 2;
+        }
+
+        .letter-shell.opened .letter-flap {
+            transform: rotateX(180deg);
+        }
+
+        .letter-paper {
+            position: absolute;
+            left: 50%;
+            top: 58%;
+            transform: translate(-50%, -50%) rotateY(0deg) rotateX(0deg);
+            width: calc(100% - 40px);
+            min-height: 190px;
+            max-height: 210px;
+            padding: 18px 18px 12px;
+            background: linear-gradient(180deg, #fffdfd 0%, #fff4f9 100%);
+            border: 1px solid rgba(174, 90, 142, 0.2);
+            border-radius: 16px;
+            color: #4d2648;
+            text-align: left;
+            box-shadow: 0 12px 22px rgba(82, 39, 70, 0.08);
+            opacity: 0;
+            overflow-y: auto;
+            transition: all 0.7s ease;
+            z-index: 3;
+        }
+
+        .letter-shell.opened .letter-paper {
+            top: 52%;
+            opacity: 1;
+            transform: translate(-50%, -50%) rotateY(0deg) rotateX(0deg);
+        }
+
+        .letter-shell.opened .letter-seal {
+            opacity: 0;
+            transform: scale(0.6);
+        }
+
+        .letter-to {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8a4b7a;
+        }
+
+        .letter-paper p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #4d2648;
+        }
+
+        .letter-seal {
+            position: absolute;
+            right: 22px;
+            top: 18px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #f8c9d8 0%, #f0a7c4 100%);
+            border: 1px solid rgba(125, 68, 101, 0.18);
+            box-shadow: 0 10px 18px rgba(168, 92, 136, 0.18);
+            font-size: 1.1rem;
+            z-index: 4;
+            transition: all 0.5s ease;
+        }
+
+        .reward-photo::before {
+            content: "📸";
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        .reward-modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(31, 18, 35, 0.62);
+            z-index: 50;
+            backdrop-filter: blur(8px);
+        }
+
+        .reward-modal.hidden {
+            display: none;
+        }
+
+        .reward-modal-card {
+            width: min(520px, calc(100vw - 32px));
+            background: linear-gradient(180deg, #fffafc 0%, #fff3f9 100%);
+            border: 1px solid rgba(180, 107, 166, 0.18);
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 24px 50px rgba(36, 18, 31, 0.22);
+            text-align: center;
+        }
+
+        .reward-media {
+            width: 100%;
+            min-height: 260px;
+            border-radius: 20px;
+            overflow: visible;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(246,194,214,0.35));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(140, 82, 124, 0.35);
+            margin-bottom: 18px;
+        }
+
+        .reward-media img,
+        .reward-media video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .reward-media-fallback {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #502748;
+            padding: 20px;
+        }
+
+        .reward-modal h3 {
+            margin: 0 0 8px;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: #412b4a;
+        }
+
+        .reward-modal p {
+            margin: 0 0 12px;
+            color: rgba(61, 41, 67, 0.8);
+        }
+
+        .reward-countdown {
+            font-weight: 800;
+            color: #7d3d7a;
+            margin-bottom: 18px;
+        }
+
+        .reward-modal .btn {
+            display: none;
+        }
+
+        .reward-modal .btn.visible {
+            display: inline-flex;
+        }
+
+        .reward-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 18px;
+            display: grid;
+            gap: 10px;
+            justify-items: center;
+        }
+
+        .reward-list li {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 216, 109, 0.16);
+            font-weight: 700;
+        }
+
+        .game-shell {
+            background: linear-gradient(180deg, #fdf7ff 0%, #fff4fb 100%);
+            border: 1px solid rgba(111, 91, 255, 0.08);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.5);
+            border-bottom: 1px solid rgba(111, 91, 255, 0.08);
+            font-weight: 700;
+        }
+
+        #runnerGame {
+            position: relative;
+            height: 360px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #bfe7ff 0%, #dff7ff 35%, #fff9d6 100%);
+            border-bottom: 5px solid rgba(98, 177, 108, 0.7);
+        }
+
+        .sky-strip {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        }
+
+        .cloud {
+            position: absolute;
+            width: 70px;
+            height: 26px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 999px;
+            top: 34px;
+            animation: drift 24s linear infinite;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: "";
+            position: absolute;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            width: 24px;
+            height: 24px;
+            left: 10px;
+            top: -12px;
+        }
+
+        .cloud::after {
+            width: 28px;
+            height: 28px;
+            right: 12px;
+            top: -14px;
+        }
+
+        .cloud:nth-child(2) {
+            top: 62px;
+            left: 290px;
+            transform: scale(1.2);
+            animation-duration: 18s;
+        }
+
+        .cloud:nth-child(3) {
+            top: 90px;
+            left: 620px;
+            transform: scale(0.9);
+            animation-duration: 28s;
+        }
+
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(-220px); }
+        }
+
+        .ground {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 34px;
+            background: linear-gradient(180deg, #7ad68d 0%, #58b46f 100%);
+            border-top: 3px solid rgba(69, 139, 88, 0.7);
+        }
+
+        .ground::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.18) 0,
+                rgba(255,255,255,0.18) 12px,
+                transparent 12px,
+                transparent 24px
+            );
+        }
+
+        .runner-character {
+            position: absolute;
+            left: 76px;
+            bottom: 32px;
+            width: 96px;
+            height: 96px;
+            z-index: 3;
+            image-rendering: pixelated;
+            transition: transform 0.08s ease-out;
+            background-image: url('heroRunning.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+            filter: drop-shadow(0 4px 0 rgba(70, 28, 51, 0.18));
+        }
+
+        .runner-character.jump {
+            transform: translateY(-12px) scale(1.03);
+            background-image: url('heroJumping.png');
+        }
+
+        .obstacle {
+            position: absolute;
+            right: -40px;
+            bottom: 32px;
+            width: 52px;
+            height: 66px;
+            z-index: 2;
+            image-rendering: pixelated;
+            background-color: transparent;
+            background-image: url('tree.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            filter: drop-shadow(0 6px 0 rgba(68, 104, 40, 0.18));
+        }
+
+        .game-message {
+            padding: 14px 18px 20px;
+            text-align: center;
+            font-weight: 700;
+            color: rgba(61, 41, 67, 0.8);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 700px) {
+            .page-shell {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .hero {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .card {
+                padding: 22px 16px;
+            }
+
+            #runnerGame {
+                height: 220px;
+            }
+
+            .runner-character {
+                transform: scale(0.92);
+                transform-origin: bottom left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-badge">За теб, моята малка Малишка</div>
+            <h1>Много те обичам</h1>
+            <p>
+                За мен винаги ще си най-прекрасното котенце в целия свят!
+            </p>
+            <div class="cta-row">
+                <button class="btn primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior: 'smooth'})">Почни любовната история</button>
+                <button class="btn secondary" onclick="document.getElementById('game-section').scrollIntoView({behavior: 'smooth'})">Виж наградата</button>
+            </div>
+        </header>
+
+        <main>
+            <section id="quiz-section" class="card">
+                <h2>Няколко много трудни въпроса за мен</h2>
+                <div id="quiz" class="quiz-grid"></div>
+                <div id="quizResult" class="quiz-result"></div>
+            </section>
+
+            <section id="reward-section" class="card reward-card">
+                <h3>Наградата е готова ✨</h3>
+                <p>
+                    Ти си най-доброто нещо в моя свят и затова заслужаваш любов, и още много сладки мигове заедно.
+                </p>
+                <ul class="reward-list">
+                    <li>💖 Да се гушкаме цяла вечер</li>
+                    <li>🍰 любимата ти торта и вкусно хранене</li>
+                    <li>🎉 предизвикателство заедно</li>
+                </ul>
+                <div class="reward-gallery">
+                    <div class="reward-photo" data-level="500">Първа награда</div>
+                    <div class="reward-photo" data-level="1500">Втора награда</div>
+                    <div class="reward-photo" data-level="3000">Любовно писмо</div>
+                </div>
+                <button class="btn primary" id="startGameBtn">Пусни играта</button>
+            </section>
+
+            <section id="game-section" class="card">
+                <h2>Мини игра: спечели любовната награда</h2>
+                <div class="game-shell">
+                    <div class="game-header">
+                        <span>Резултат: <span id="scoreValue">0</span></span>
+                        <span>Цел: 3000</span>
+                    </div>
+                    <div id="runnerGame">
+                        <div class="sky-strip"></div>
+                        <div class="cloud"></div>
+                        <div class="cloud"></div>
+                        <div class="cloud"></div>
+                        <div id="player" class="runner-character" aria-label="Главен герой"></div>
+                        <div id="obstacles"></div>
+                        <div class="ground"></div>
+                    </div>
+                    <div id="gameMessage" class="game-message">Натисни Space, стрелка нагоре или кликни в играта, за да скочиш.</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="rewardModal" class="reward-modal hidden" aria-live="polite">
+        <div class="reward-modal-card">
+            <div id="rewardMedia" class="reward-media"></div>
+            <h3 id="rewardTitle">Награда</h3>
+            <p id="rewardText">Спечели наградата за това ниво.</p>
+            <div id="rewardCountdown" class="reward-countdown">Зареждане за 3...</div>
+            <button id="continueRewardBtn" class="btn primary">Продължи към следващото ниво</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Какво обичам най-много в теб?",
+                options: [
+                    "Твоят смях, който прави всичко по-леко",
+                    "Твоята топла прегръдка",
+                    "Да съм до теб ,което ме кара да се чувствам щастлив",
+                    "Твоите малки прекасни очички"
+                ],
+                correct: [0, 1, 2, 3]
+            },
+            {
+                question: "Кое е любимото ми нещо за ядене?",
+                options: [
+                    "Теб",
+                    "Теб",
+                    "Теб",
+                    "Хрисимира"
+                ],
+                correct: [0, 1, 2, 3]
+            },
+            {
+                question: "Какво най-много ми харесва в нашата връзка?",
+                options: [
+                    "Твоят прекрасен поглед",
+                    "Моментите, в които сме заедно и сме щастливи",
+                    "Дупето ти",
+                    "Това, че където и да съм ако съм с теб винаги ще съм добре"
+                ],
+                correct: [0, 1, 2, 3]
+            },
+            {
+                question: "Какво искам да направим с теб следващия път?",
+                options: [
+                    "Да се разходим заедно много, много след ямкане",
+                    "Да се сгушим на топло и да заспиваме заедно всяка вечер",
+                    "Да си играем и лигавим",
+                    "Да обикаляме с колата безцелно и да спираме на случайни и много красиви гледки(Като теб)"
+                ],
+                correct: [0, 1, 2, 3]
+            }
+        ];
+
+        const quizEl = document.getElementById('quiz');
+        const quizResultEl = document.getElementById('quizResult');
+        const rewardSection = document.getElementById('reward-section');
+        const startGameBtn = document.getElementById('startGameBtn');
+        const rewardPhotos = Array.from(document.querySelectorAll('.reward-photo'));
+
+        let currentQuestionIndex = 0;
+        let answered = false;
+
+        function renderQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                quizResultEl.textContent = "Това е само начало на историята, която искам да живеем заедно.";
+                rewardSection.classList.add('visible');
+                return;
+            }
+
+            const q = questions[currentQuestionIndex];
+            const questionBox = document.createElement('div');
+            questionBox.className = 'question-box';
+
+            const title = document.createElement('h3');
+            title.textContent = `${currentQuestionIndex + 1}. ${q.question}`;
+
+            const answers = document.createElement('div');
+            answers.className = 'answers';
+
+            q.options.forEach((option, idx) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'answer-btn';
+                button.textContent = option;
+                button.addEventListener('click', () => {
+                    if (answered) return;
+                    answered = true;
+                    document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
+                    button.classList.add('selected');
+
+                    const isCorrect = Array.isArray(q.correct) ? q.correct.includes(idx) : idx === q.correct;
+                    if (isCorrect) {
+                        quizResultEl.textContent = 'Точно така 😍';
+                    } else {
+                        quizResultEl.textContent = 'Не е точният, но пак е красиво, защото идва от сърцето ти 💖';
+                    }
+
+                    setTimeout(() => {
+                        currentQuestionIndex += 1;
+                        answered = false;
+                        quizResultEl.textContent = '';
+                        renderQuestion();
+
+                        if (currentQuestionIndex >= questions.length) {
+                            setTimeout(() => {
+                                document.getElementById('game-section').scrollIntoView({ behavior: 'smooth' });
+                                resetRun();
+                                gameLoop = requestAnimationFrame(tick);
+                            }, 500);
+                        }
+                    }, 1200);
+                });
+                answers.appendChild(button);
+            });
+
+            questionBox.append(title, answers);
+            quizEl.innerHTML = '';
+            quizEl.appendChild(questionBox);
+        }
+
+        renderQuestion();
+
+        const player = document.getElementById('player');
+        const runnerGame = document.getElementById('runnerGame');
+        const obstaclesLayer = document.getElementById('obstacles');
+        const scoreValue = document.getElementById('scoreValue');
+        const gameMessage = document.getElementById('gameMessage');
+        const rewardMilestones = [500, 1500, 3000];
+        const rewardModal = document.getElementById('rewardModal');
+        const rewardMedia = document.getElementById('rewardMedia');
+        const rewardTitle = document.getElementById('rewardTitle');
+        const rewardText = document.getElementById('rewardText');
+        const rewardCountdown = document.getElementById('rewardCountdown');
+        const continueRewardBtn = document.getElementById('continueRewardBtn');
+
+        function updateRewardProgress() {
+            rewardPhotos.forEach((rewardPhoto) => {
+                const threshold = Number(rewardPhoto.dataset.level);
+                rewardPhoto.classList.toggle('visible', score >= threshold);
+            });
+        }
+
+        function setRewardMedia(levelIndex) {
+            rewardMedia.innerHTML = '';
+            const labels = ['Първа награда', 'Втора награда', 'Любовно писмо'];
+
+            if (levelIndex === 2) {
+                const letter = document.createElement('div');
+                letter.className = 'reward-letter';
+                letter.innerHTML = `
+                    <div class="letter-shell" aria-label="Отвори любовното писмо" tabindex="0">
+                        <div class="letter-envelope">
+                            <div class="letter-flap"></div>
+                            <div class="letter-seal">💗</div>
+                        </div>
+                        <div class="letter-paper">
+                            <span class="letter-to">За теб, моята Малишка</span>
+                            <p>Знам ,че понякога и на двамата ни е трудно с това разстояние ,но искам да ми повярваш ,че няма да е винаги така и скоро време ще прекаваме повече време заедно. Аз съм до теб винаги принцесо моя и в най-лошите и най-прекрасните ни моменти и това никога няма да се промени както обичта ми към теб. Очите ми се изпълват с тъга като те погледна колко си тъжна ,но няма да спирам да давам всички от себе си ,за да мога да съм до теб моето малко котенце. Пиша го с насълзени очи но искам да знаеш ,че винаги ще те подкрепям и се гордея с това колко много си постигналa. ОБИЧАМ ТЕ 3.14159265359</p>
+                        </div>
+                    </div>
+                `;
+
+                const letterShell = letter.querySelector('.letter-shell');
+                const toggleLetter = () => {
+                    letterShell.classList.toggle('opened');
+                };
+
+                letterShell.addEventListener('click', toggleLetter);
+                letterShell.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleLetter();
+                    }
+                });
+
+                rewardMedia.appendChild(letter);
+                return;
+            }
+
+            const files = ['Picture1.jpeg', 'Picture2.jpeg'];
+            const media = document.createElement('img');
+            media.src = files[levelIndex];
+
+            media.onerror = () => {
+                const fallback = document.createElement('div');
+                fallback.className = 'reward-media-fallback';
+                fallback.textContent = `${labels[levelIndex]} ✨`;
+                rewardMedia.replaceChildren(fallback);
+            };
+
+            rewardMedia.appendChild(media);
+        }
+
+        let playerBottom = 32;
+        let velocity = 0;
+        let isJumping = false;
+        let score = 0;
+        let gameLoop = null;
+        let obstacleTimer = 0;
+        let lastTimestamp = 0;
+        let running = false;
+        let jumpHoldActive = false;
+        let jumpHoldStartedAt = 0;
+        let rewardIndex = 0;
+        let rewardTimer = null;
+        let modalCountdown = 3;
+
+        function updateHeroPose() {
+            if (isJumping) {
+                player.style.backgroundImage = "url('heroJumping.png')";
+                return;
+            }
+            player.style.backgroundImage = "url('heroRunning.png')";
+        }
+
+        function resetRun() {
+            playerBottom = 32;
+            velocity = 0;
+            isJumping = false;
+            score = 0;
+            obstacleTimer = 0;
+            lastTimestamp = 0;
+            jumpHoldActive = false;
+            jumpHoldStartedAt = 0;
+            rewardIndex = 0;
+            modalCountdown = 3;
+            clearInterval(rewardTimer);
+            rewardModal.classList.add('hidden');
+            continueRewardBtn.classList.remove('visible');
+            obstaclesLayer.innerHTML = '';
+            scoreValue.textContent = '0';
+            player.style.bottom = `${playerBottom}px`;
+            player.classList.remove('jump');
+            player.classList.add('running');
+            updateHeroPose();
+            updateRewardProgress();
+            gameMessage.textContent = 'Цъкни на екрана да играеш или space коте';
+            running = true;
+        }
+
+        function jump() {
+            if (!running) return;
+            if (isJumping) return;
+
+            velocity = 10.3;
+            isJumping = true;
+            jumpHoldActive = true;
+            jumpHoldStartedAt = performance.now();
+            player.classList.add('jump');
+            player.classList.remove('running');
+            updateHeroPose();
+        }
+
+        function releaseJump() {
+            if (!jumpHoldActive) return;
+
+            const holdTime = performance.now() - jumpHoldStartedAt;
+            const bonus = Math.min(holdTime / 95, 3.8);
+            velocity += bonus;
+            jumpHoldActive = false;
+        }
+
+        function spawnObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.className = 'obstacle';
+            obstacle.style.right = '-60px';
+
+            const randomScale = 0.8 + Math.random() * 0.6;
+            obstacle.style.transform = `scale(${randomScale})`;
+            obstacle.style.filter = 'drop-shadow(0 6px 0 rgba(68, 104, 40, 0.18))';
+            obstaclesLayer.appendChild(obstacle);
+        }
+
+        function endGame(reason) {
+            running = false;
+            cancelAnimationFrame(gameLoop);
+            player.classList.remove('jump');
+            player.classList.remove('running');
+            gameMessage.textContent = reason || 'Готово! Ти успя да спечелиш наградата ❤️';
+            setTimeout(() => {
+                if (score >= 500) {
+                    gameMessage.textContent = 'Браво Малишката ми ето ти наградата';
+                }
+            }, 300);
+        }
+
+        function showRewardPopup() {
+            if (rewardIndex >= rewardMilestones.length) return;
+
+            const currentMilestone = rewardMilestones[rewardIndex];
+            const label = ['Първа награда', 'Втора награда', 'Любовно писмо'][rewardIndex];
+            const message = [
+                'Това е твоята първа награда — най-любимият спомен е готов.',
+                'Наградата е достигната! Продължаваме към следващия шанс за още една сладка изненада.',
+                'Ти си най-доброто нещо в живота ми, и всяка минута с теб ми е най-ценният подарък.'
+            ][rewardIndex];
+
+            rewardTitle.textContent = label;
+            rewardText.textContent = message;
+            rewardCountdown.textContent = `Зареждане за ${modalCountdown}s`;
+            setRewardMedia(rewardIndex);
+            rewardModal.classList.remove('hidden');
+            continueRewardBtn.classList.remove('visible');
+            continueRewardBtn.textContent = rewardIndex === rewardMilestones.length - 1 ? 'Завърши' : 'Продължи към следващото ниво';
+            running = false;
+            cancelAnimationFrame(gameLoop);
+
+            clearInterval(rewardTimer);
+            rewardTimer = setInterval(() => {
+                modalCountdown -= 1;
+                if (modalCountdown <= 0) {
+                    rewardCountdown.textContent = 'Можеш да продължиш!';
+                    continueRewardBtn.classList.add('visible');
+                    clearInterval(rewardTimer);
+                    return;
+                }
+                rewardCountdown.textContent = `Зареждане за ${modalCountdown}s`;
+            }, 1000);
+
+            scoreValue.textContent = String(currentMilestone);
+            updateRewardProgress();
+        }
+
+        continueRewardBtn.addEventListener('click', () => {
+            rewardModal.classList.add('hidden');
+            clearInterval(rewardTimer);
+            modalCountdown = 3;
+            rewardIndex += 1;
+            running = true;
+            gameLoop = requestAnimationFrame(tick);
+        });
+
+        function tick(timestamp) {
+            if (!running) return;
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const delta = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+
+            playerBottom += velocity * (delta / 16.5);
+            velocity -= 0.45 * (delta / 16.5);
+
+            if (jumpHoldActive && isJumping) {
+                const extraLift = 0.12 * (delta / 16.5);
+                velocity += extraLift;
+                velocity = Math.min(velocity, 14.2);
+            }
+
+            if (playerBottom <= 32) {
+                playerBottom = 32;
+                velocity = 0;
+                isJumping = false;
+                jumpHoldActive = false;
+                player.classList.remove('jump');
+                player.classList.add('running');
+            }
+
+            updateHeroPose();
+            player.style.bottom = `${playerBottom}px`;
+
+            const playerBox = {
+                left: 94,
+                right: 132,
+                top: playerBottom + 76,
+                bottom: playerBottom + 12
+            };
+
+            const obstacles = Array.from(obstaclesLayer.children);
+            obstacles.forEach((obstacle) => {
+                const currentRight = parseFloat(obstacle.style.right || '0');
+                const newRight = currentRight + 4.8 * (delta / 16.5);
+                obstacle.style.right = `${newRight}px`;
+
+                const obstacleWidth = obstacle.offsetWidth || 42;
+                const obstacleHeight = obstacle.offsetHeight || 66;
+                const obstacleBox = {
+                    left: runnerGame.clientWidth - (newRight + obstacleWidth),
+                    right: runnerGame.clientWidth - newRight,
+                    top: 32 + obstacleHeight,
+                    bottom: 32
+                };
+
+                const collides = playerBox.right > obstacleBox.left + 4 && playerBox.left < obstacleBox.right - 4 && playerBox.top > obstacleBox.bottom && playerBox.bottom < obstacleBox.top;
+                if (collides) {
+                    endGame('Няма да спреш да си най-хубавата част от моя свят! Опитай отново 💞');
+                    return;
+                }
+
+                if (obstacleBox.right < 0) {
+                    obstacle.remove();
+                }
+            });
+
+            obstacleTimer += delta;
+            const nextSpawnGap = 1050 + Math.random() * 700;
+            if (obstacleTimer > nextSpawnGap) {
+                obstacleTimer = 0;
+                spawnObstacle();
+            }
+
+            score += 1;
+            updateRewardProgress();
+
+            if (rewardIndex < rewardMilestones.length && score >= rewardMilestones[rewardIndex]) {
+                showRewardPopup();
+                return;
+            }
+
+            if (score >= rewardMilestones[rewardMilestones.length - 1]) {
+                endGame('Победа! Ти стигна до финалната награда и спечели най-любимата снимка 💖');
+                scoreValue.textContent = String(rewardMilestones[rewardMilestones.length - 1]);
+                return;
+            }
+            scoreValue.textContent = String(score);
+
+            gameLoop = requestAnimationFrame(tick);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space' || event.code === 'ArrowUp') {
+                event.preventDefault();
+                if (!jumpHoldActive && !isJumping) {
+                    jump();
+                }
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            if (event.code === 'Space' || event.code === 'ArrowUp') {
+                event.preventDefault();
+                releaseJump();
+            }
+        });
+
+        runnerGame.addEventListener('pointerdown', () => {
+            if (!running) {
+                resetRun();
+                gameLoop = requestAnimationFrame(tick);
+            }
+            if (!jumpHoldActive && !isJumping) {
+                jump();
+            }
+        });
+
+        runnerGame.addEventListener('pointerup', () => {
+            releaseJump();
+        });
+
+        startGameBtn.addEventListener('click', () => {
+            document.getElementById('game-section').scrollIntoView({ behavior: 'smooth' });
+            resetRun();
+            gameLoop = requestAnimationFrame(tick);
+        });
+    </script>
+</body>
+</html>
